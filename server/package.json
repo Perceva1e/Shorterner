@@ -19,6 +19,7 @@
     "pg": "^8.16.3",
     "sequelize": "^6.37.7",
     "shortid": "^2.2.17",
+    "ua-parser-js": "^2.0.4",
     "useragent": "^2.3.0"
   }
 }

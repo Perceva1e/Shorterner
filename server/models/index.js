@@ -22,7 +22,13 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.urls = require("./url.model")(sequelize, Sequelize);
-db.clicks = require("./click.model")(sequelize, Sequelize);
+db.Url = require("./url.model")(sequelize, Sequelize);
+db.Click = require("./click.model")(sequelize, Sequelize);
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 
 module.exports = db;

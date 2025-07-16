@@ -15,6 +15,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.10.0",
+    "framer-motion": "^12.23.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
@@ -23,6 +24,7 @@
     "recharts": "^3.1.0",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
+    "ua-parser-js": "^2.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

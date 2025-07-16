@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "geoip-lite": "^1.4.10",
+    "ua-parser-js": "^2.0.4"
+  }
+}

@@ -16,6 +16,7 @@ exports.getStats = async (req, res) => {
           'browserVersion',
           'os',
           'deviceType',
+          'referrer',
           'timestamp'
         ]
       }]
@@ -34,17 +35,27 @@ exports.getStats = async (req, res) => {
     };
     
     url.clicks.forEach(click => {
-      const country = click.region.split(',').pop()?.trim() || 'Unknown';
+      const country = click.region && typeof click.region === 'string' 
+        ? click.region.split(',').pop()?.trim() || 'Unknown' 
+        : 'Unknown';
       statsData.byCountry[country] = (statsData.byCountry[country] || 0) + 1;
-      
-      const browserKey = `${click.browser} ${click.browserVersion}`;
+
+      const browserKey = `${click.browser || 'Unknown'} ${click.browserVersion || ''}`.trim();
       statsData.byBrowser[browserKey] = (statsData.byBrowser[browserKey] || 0) + 1;
       
-      statsData.byOS[click.os] = (statsData.byOS[click.os] || 0) + 1;
+      statsData.byOS[click.os || 'Unknown'] = (statsData.byOS[click.os] || 0) + 1;
       
-      statsData.byDevice[click.deviceType] = (statsData.byDevice[click.deviceType] || 0) + 1;
+      statsData.byDevice[click.deviceType || 'Unknown'] = (statsData.byDevice[click.deviceType] || 0) + 1;
       
-      const referrer = click.referrer === 'direct' ? 'Direct' : new URL(click.referrer).hostname;
+      let referrer = 'Direct';
+      if (click.referrer && click.referrer !== 'direct') {
+        try {
+          const url = new URL(click.referrer);
+          referrer = url.hostname.replace(/^www\./, ''); 
+        } catch (e) {
+          referrer = 'Unknown';
+        }
+      }
       statsData.referrers[referrer] = (statsData.referrers[referrer] || 0) + 1;
       
       const hour = new Date(click.timestamp).getHours();

@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: false
   });
    Url.associate = (models) => {
-    Url.hasMany(models.Click, {
+    Url.hasMany(models.Click, { 
       foreignKey: 'urlId',
       as: 'clicks' 
     });
