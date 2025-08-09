@@ -1,0 +1,132 @@
+.container {
+  min-height: 100vh;
+  background-color: #f0f9ff; 
+  padding: 1rem;
+}
+
+.loadingContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f9ff;
+}
+
+.loadingText {
+  color: #1e40af;
+  font-size: 1.25rem;
+}
+
+.errorContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f9ff;
+}
+
+.errorCard {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 90%;
+  width: 100%;
+}
+
+.errorHeading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #dc2626;
+  margin-bottom: 1rem;
+}
+
+.errorMessage {
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.content {
+  max-width: 80rem; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #1e40af;
+  margin-bottom: 0.5rem;
+}
+
+.originalUrl {
+  color: #3b82f6;
+  text-decoration: underline;
+  word-break: break-all;
+  display: block;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.originalUrl:hover {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.chartCard {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.chartCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.chartTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1e40af;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #dbeafe;
+}
+
+.tableCard {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin: 0 1rem 2rem;
+}
+
+.tableTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1e40af;
+  margin-bottom: 1rem;
+}
