@@ -10,29 +10,24 @@ import {
   Unique,
   HasMany,
   ForeignKey,
-  BelongsTo
+  BelongsTo,
 } from 'sequelize-typescript';
 import dbConfig from '../config/db';
 
-type Environment = keyof typeof dbConfig;
-
-const env = (process.env.NODE_ENV as Environment) || 'development';
-const config = dbConfig[env]; 
-
 const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
+  dbConfig.database,
+  dbConfig.username,
+  dbConfig.password,
   {
-    host: config.host,
-    dialect: config.dialect,
+    host: dbConfig.host,
+    dialect: dbConfig.dialect,
     pool: {
-      max: config.pool.max,
-      min: config.pool.min,
-      acquire: config.pool.acquire,
-      idle: config.pool.idle,
+      max: dbConfig.pool.max,
+      min: dbConfig.pool.min,
+      acquire: dbConfig.pool.acquire,
+      idle: dbConfig.pool.idle,
     },
-    dialectOptions: config.dialectOptions,
+    dialectOptions: dbConfig.dialectOptions,
   }
 );
 
