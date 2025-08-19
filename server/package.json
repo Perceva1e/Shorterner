@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
-    "dev": "tsc --watch & node dist/index.js"
+    "migrate": "npx sequelize-cli db:migrate",
+    "lint": "eslint . --ext .ts"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +27,7 @@
     "ua-parser-js": "^2.0.4"
   },
   "devDependencies": {
+    "@eslint/js": "^9.33.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/helmet": "^0.0.48",
@@ -33,6 +35,9 @@
     "@types/node": "^24.2.0",
     "@types/shortid": "^2.2.0",
     "@types/ua-parser-js": "^0.7.39",
+    "@typescript-eslint/eslint-plugin": "^8.40.0",
+    "@typescript-eslint/parser": "^8.40.0",
+    "eslint": "^9.33.0",
     "nodemon": "^3.1.10",
     "sequelize-cli": "^6.6.3",
     "ts-node": "^10.9.2",

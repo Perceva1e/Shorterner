@@ -4,9 +4,9 @@ import { isValidUrl } from '../utils/validators';
 export const validateShortCode = (req: Request, res: Response, next: NextFunction): void => {
   const { shortCode } = req.params;
 
-  const shortCodeRegex = /^[a-zA-Z0-9]{7,10}$/;
+  const shortCodeRegex = /^[A-Za-z0-9\-_]{7,}$/;
   if (!shortCode || !shortCodeRegex.test(shortCode)) {
-    res.status(400).json({ error: 'Invalid shortCode. Must be 7-10 alphanumeric characters.' });
+    res.status(400).json({ error: 'Invalid shortCode. Must be at least 7 characters and contain only letters, numbers, hyphens, or underscores.' });
     return;
   }
 

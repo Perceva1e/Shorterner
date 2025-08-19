@@ -11,7 +11,7 @@ export const shortenUrl = async (req: Request, res: Response): Promise<void> => 
 
     const result = await createShortUrl(originalUrl);
     res.status(201).json(result);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in shortenUrl:', error);
     res.status(500).json({ error: 'Server error' });
   }
@@ -27,8 +27,11 @@ export const redirectUrl = async (req: Request, res: Response): Promise<void> =>
     );
     const originalUrl = await redirectToUrl(shortCode, clickData);
     res.redirect(301, originalUrl);
-  } catch (error: any) {
-    console.error('Error in redirectUrl:', error.message);
-    res.status(error.message === 'URL not found' ? 404 : 500).json({ error: error.message || 'Server error' });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error in redirectUrl:', errorMessage);
+    
+    const statusCode = errorMessage === 'URL not found' ? 404 : 500;
+    res.status(statusCode).json({ error: errorMessage });
   }
 };

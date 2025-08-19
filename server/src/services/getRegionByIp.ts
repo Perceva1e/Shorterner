@@ -10,8 +10,9 @@ export const getRegionByIp = async (ip: string): Promise<string> => {
     }
 
     return `${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country_name || 'Unknown'}`;
-  } catch (error: any) {
-    console.error('Geo location error:', error.message);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Geo location error:', errorMessage);
     return 'Unknown';
   }
 };

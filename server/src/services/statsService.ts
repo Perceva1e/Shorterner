@@ -1,4 +1,4 @@
-import { Url, Click } from '../models/models';
+import { Url, Click } from '../models/db';
 
 interface StatsData {
   totalClicks: number;

@@ -1,4 +1,4 @@
-import { Url, Click } from '../models/models';
+import { Url, Click } from '../models/db';
 import { generateShareLink, generateStatsLink } from '../utils/generateLinks';
 import shortid from 'shortid';
 import { UAParser } from 'ua-parser-js'; 
@@ -17,7 +17,7 @@ interface ClickData {
 
 export const createShortUrl = async (originalUrl: string): Promise<{ shareLink: string; statsLink: string }> => {
   const shortCode = shortid.generate();
-  const url = await Url.create({ originalUrl, shortCode });
+  await Url.create({ originalUrl, shortCode });
   const shareLink = generateShareLink(shortCode);
   const statsLink = generateStatsLink(shortCode);
   return { shareLink, statsLink };

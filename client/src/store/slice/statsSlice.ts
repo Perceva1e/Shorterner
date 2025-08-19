@@ -19,10 +19,10 @@ export const fetchStats = createAsyncThunk(
   async (shortCode: string, { rejectWithValue }) => {
     try {
       const response = await getStats(shortCode);
+      console.log('Fetched stats:', JSON.stringify(response, null, 2));
       return response;
     } catch (error) {
       let errorMessage = 'Error of server';
-      
       if (typeof error === 'string') {
         errorMessage = error;
       } else if (error instanceof Error) {
@@ -33,7 +33,7 @@ export const fetchStats = createAsyncThunk(
         };
         errorMessage = axiosError.response?.data?.error || errorMessage;
       }
-      
+      console.error('Fetch stats error:', errorMessage);
       return rejectWithValue(errorMessage);
     }
   }

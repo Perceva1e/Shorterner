@@ -7,7 +7,7 @@ import ClickTable from '../../components/clickTable/ClickTable';
 import BarChart from '../../components/charts/BarChart';
 import PieChart from '../../components/charts/PieChart';
 import type { RootState } from '../../store/store';
-import styles from './StatsPage.module.css'; 
+import styles from './StatsPage.module.css';
 
 const StatsPage: React.FC = () => {
   const { shortCode } = useParams<{ shortCode: string }>();
@@ -40,13 +40,24 @@ const StatsPage: React.FC = () => {
     );
   }
 
-  if (!data) return null;
+  if (!data || !data.statsData) {
+    return (
+      <div className={styles.errorContainer}>
+        <div className={styles.errorCard}>
+          <h2 className={styles.errorHeading}>Ошибка</h2>
+          <p className={styles.errorMessage}>Данные статистики недоступны</p>
+        </div>
+      </div>
+    );
+  }
 
   const transformChartData = (entries: [string, unknown][]) => {
-    return entries.map(([name, value]) => ({
-      name,
-      value: typeof value === 'number' ? value : 0
-    }));
+    return entries
+      .filter(([, value]) => typeof value === 'number' && value > 0)
+      .map(([name, value]) => ({
+        name,
+        value: value as number,
+      }));
   };
 
   return (
@@ -69,24 +80,36 @@ const StatsPage: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.chartCard}>
             <h2 className={styles.chartTitle}>География переходов</h2>
-            <BarChart 
-              data={transformChartData(Object.entries(data.statsData.byCountry))}
-              color="#3b82f6"
-            />
+            {Object.keys(data.statsData.byCountry).length > 0 ? (
+              <BarChart 
+                data={transformChartData(Object.entries(data.statsData.byCountry))}
+                color="#3b82f6"
+              />
+            ) : (
+              <p className={styles.noData}>Нет данных по географии</p>
+            )}
           </div>
           
           <div className={styles.chartCard}>
             <h2 className={styles.chartTitle}>Браузеры</h2>
-            <PieChart 
-              data={transformChartData(Object.entries(data.statsData.byBrowser))}
-            />
+            {Object.keys(data.statsData.byBrowser).length > 0 ? (
+              <PieChart 
+                data={transformChartData(Object.entries(data.statsData.byBrowser))}
+              />
+            ) : (
+              <p className={styles.noData}>Нет данных по браузерам</p>
+            )}
           </div>
           
           <div className={styles.chartCard}>
             <h2 className={styles.chartTitle}>Операционные системы</h2>
-            <PieChart 
-              data={transformChartData(Object.entries(data.statsData.byOS))}
-            />
+            {Object.keys(data.statsData.byOS).length > 0 ? (
+              <PieChart 
+                data={transformChartData(Object.entries(data.statsData.byOS))}
+              />
+            ) : (
+              <p className={styles.noData}>Нет данных по ОС</p>
+            )}
           </div>
         </div>
 

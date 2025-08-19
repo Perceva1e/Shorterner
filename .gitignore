@@ -1,7 +1,31 @@
-node_modules/ 
-dist/ 
-build/ 
-.env 
-*.log 
-client/build/ 
-server/dist/
+# Node.js
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Firebase service account key
+*.json
+
+# IDE and editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Test coverage
+coverage/

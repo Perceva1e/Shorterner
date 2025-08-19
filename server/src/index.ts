@@ -1,33 +1,41 @@
-import path from 'path';
 import { config } from 'dotenv';
+config();
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import router from './routes/routes';
 import errorHandler from './middlewares/errorHandler';
-import { sequelize } from './models/models';
-
-config();
+import { sequelize } from './models/db';
 
 const app: Express = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
+
+const allowedOrigins = ['http://localhost:5173', 'http://client:5173'];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      console.log('CORS Origin:', origin); 
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+      }
+    },
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+    credentials: false,
+  })
+);
 
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL }));
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.use('/', router); 
+app.use('/', router);
 app.use(express.static('public'));
 app.get('/favicon.ico', (_req: Request, res: Response) => res.status(204).end());
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-  app.get(/^\/(?!r\/|stats\/).*/, (_req: Request, res: Response) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-  });
-}
 
 app.use(errorHandler);
 

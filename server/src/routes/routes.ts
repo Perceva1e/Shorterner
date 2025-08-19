@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { shortenUrl, redirectUrl} from '../controllers/urlController';
-import { getStats } from '../controllers/statsController'
+import { getStats } from '../controllers/statsController';
 import { validateShortCode, validateOriginalUrl } from '../middlewares/urlMiddleware';
 
 const router = Router();
