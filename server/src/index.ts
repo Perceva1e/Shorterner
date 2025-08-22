@@ -9,7 +9,7 @@ import errorHandler from './middlewares/errorHandler';
 import { sequelize } from './models/db';
 
 const app: Express = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 const allowedOrigins = ['http://localhost:5173', 'http://client:5173'];
 

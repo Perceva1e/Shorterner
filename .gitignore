@@ -7,7 +7,12 @@ yarn-error.log
 # Environment variables
 .env
 
-# Firebase service account key
+# Configuration files
+*.config.js
+*.config.ts
+*.config.json
+
+# JSON files 
 *.json
 
 # IDE and editor files
